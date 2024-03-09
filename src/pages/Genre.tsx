@@ -1,5 +1,6 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material'
+import { Chip, Stack } from '@mui/material'
 import { useEffect, useState } from 'react'
+import Util from '../Util'
 import FilmGrid from '../components/FilmGrid'
 import { Film } from '../types/Film'
 
@@ -30,39 +31,45 @@ export default function Genre(props: Props) {
         'War',
         'Western'
     ]
-    const [activeGenre, setActiveGenre] = useState<string>('')
+    const [activeGenre, setActiveGenre] = useState<string[]>([])
 
     useEffect(() => {
-        setShowFilmList([])
-        setShowFilmList(props.filmList.filter((film) => film.genre.includes(activeGenre)))
+        if (activeGenre.length === 0) {
+            setShowFilmList([])
+        } else {
+            setShowFilmList(props.filmList.filter((film) => film.genre.some((filmGenre) => activeGenre.includes(filmGenre))))
+        }
     }, [activeGenre])
 
     useEffect(() => {
         console.log(showFilmList)
     }, [showFilmList])
 
+    useEffect(() => {
+        console.log(activeGenre)
+    }, [activeGenre])
+
+    const handleGenreChange = (newGenre: string) => {
+        if (activeGenre.includes(newGenre)) {
+            setActiveGenre(activeGenre.filter((genre) => genre != newGenre))
+        } else {
+            setActiveGenre((prevData) => [...prevData, newGenre])
+        }
+    }
+
     return <Stack>
         <Stack
-            alignItems='center'
+            display='flex'
+            flexDirection='row'
+            gap={2}
+            flexWrap='wrap'
             mt={2}
+            justifyContent='center'
+            px={30}
         >
-            <FormControl
-                sx={{
-                    width: '40%'
-                }}
-            >
-                <InputLabel id="demo-simple-select-label" size='small'>Genre</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={activeGenre}
-                    label="Genre"
-                    onChange={(event: SelectChangeEvent) => setActiveGenre(event.target.value)}
-                    size='small'
-                >
-                    {genres.map((genre) => <MenuItem value={genre}>{genre}</MenuItem>)}
-                </Select>
-            </FormControl>
+            {genres.map((genre) => {
+                return <Chip label={genre} onClick={() => handleGenreChange(genre)} sx={{ backgroundColor: activeGenre.includes(genre) ? new Util().randomColor() : 'grey', color: 'white', fontSize: 20, fontWeight: 'bold', cursor: 'pointer' }} />
+            })}
         </Stack>
         <FilmGrid filmList={showFilmList} />
     </Stack>

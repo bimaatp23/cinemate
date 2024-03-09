@@ -11,7 +11,6 @@ export default class Util {
         '#ff9800', // Orange
         '#ff5722', // Deep Orange
         '#795548', // Brown
-        '#9e9e9e', // Grey
         '#607d8b'  // Blue Grey
     ]
 
