@@ -12,7 +12,7 @@ export class BaseServiceImpl implements BaseService {
         const defaultConfig: AxiosRequestConfig<any> = {
             ...config,
             headers: {
-                'X-RapidAPI-Key': 'abf9b75690msh68fbd4dea3474b3p150c8bjsn4b127b77b691',
+                'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
                 'X-RapidAPI-Host': 'imdb-top-100-movies.p.rapidapi.com'
             }
         }
