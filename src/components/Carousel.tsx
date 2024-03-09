@@ -102,9 +102,10 @@ export default function Carousel(props: Props) {
                             display='flex'
                             flexDirection='row'
                             columnGap={2}
+                            mt={3}
                         >
                             {carousel.genre.map((genre) => {
-                                return <Chip label={genre} sx={{ backgroundColor: new Util().randomColor(), color: 'white', fontSize: 20, fontWeight: 'bold' }} />
+                                return <Chip label={genre} sx={{ backgroundColor: new Util().randomColor(), color: 'white', fontSize: 20, fontWeight: 'bold', cursor: 'pointer' }} />
                             })}
                         </Stack>
                     </Stack>
