@@ -4,5 +4,6 @@ export interface Film {
     description: string
     image: string
     genre: string[]
+    year: string | number
     imdbid: string
 }

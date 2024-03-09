@@ -195,6 +195,6 @@ export default function App() {
         </AppBar>
         {activePage === 'Series' ? <Series seriesList={seriesList} /> : <></>}
         {activePage === 'Movies' ? <Movie movieList={movieList} /> : <></>}
-        {activePage === 'Genre' ? <Genre filmList={[...movieList, ...seriesList]}/> : <></>}
+        {activePage === 'Genre' ? <Genre filmList={[...movieList, ...seriesList]} /> : <></>}
     </>
 }
