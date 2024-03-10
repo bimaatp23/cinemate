@@ -17,7 +17,7 @@ export default function Search(props: Props) {
         } else {
             setShowFilmList(props.filmList.filter((film) => film.title.toLowerCase().includes(props.searchValue.toLocaleLowerCase())))
         }
-    }, [props.filmList])
+    }, [props.searchValue])
 
     return <Stack>
         {showFilmList.length > 0 ? <FilmGrid filmList={showFilmList} /> : <Typography align='center' variant='h4' mt={1}>Oops! No films found with that keyword</Typography>}

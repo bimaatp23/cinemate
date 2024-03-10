@@ -43,7 +43,7 @@ export default function Genre(props: Props) {
 
     const handleGenreChange = (newGenre: string) => {
         if (activeGenre.includes(newGenre)) {
-            setActiveGenre(activeGenre.filter((genre) => genre != newGenre))
+            setActiveGenre(activeGenre.filter((genre) => genre !== newGenre))
         } else {
             setActiveGenre((prevData) => [...prevData, newGenre])
         }

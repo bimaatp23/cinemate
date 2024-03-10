@@ -94,7 +94,7 @@ export default function Carousel(props: Props) {
                             }}
                         />
                     </Stack>
-                    <img src={carousel.image} width='250px' />
+                    <img src={carousel.image} width='250px' alt={carousel.title} />
                     <Stack>
                         <Typography variant='h4' sx={{ cursor: 'pointer' }}>{carousel.title} ({carousel.year})</Typography>
                         <Typography variant='h6'>{carousel.description}</Typography>
