@@ -1,4 +1,5 @@
-import { Card, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material'
+import { Card, CardContent, CardMedia, Chip, Grid, Stack, Typography } from '@mui/material'
+import Util from '../Util'
 import { Film } from '../types/Film'
 
 interface Props {
@@ -26,6 +27,17 @@ export default function FilmGrid(props: Props) {
                             <Typography gutterBottom variant='h6' component='div'>
                                 {film.title} ({film.year})
                             </Typography>
+                            <Stack
+                                display='flex'
+                                flexDirection='row'
+                                gap={1}
+                                flexWrap='wrap'
+                                mt={1}
+                            >
+                                {film.genre.map((genre) => {
+                                    return <Chip label={genre} size='small' sx={{ backgroundColor: new Util().randomColor(), color: 'white', fontSize: 15, fontWeight: 'bold' }} />
+                                })}
+                            </Stack>
                         </CardContent>
                     </Card>
                 </Grid>
