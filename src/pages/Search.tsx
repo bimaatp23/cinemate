@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import FilmGrid from '../components/FilmGrid'
 import { Film } from '../types/Film'
@@ -20,6 +20,6 @@ export default function Search(props: Props) {
     }, [props.filmList])
 
     return <Stack>
-        <FilmGrid filmList={showFilmList} />
+        {showFilmList.length > 0 ? <FilmGrid filmList={showFilmList} /> : <Typography align='center' variant='h4' mt={1}>Oops! No films found with that keyword</Typography>}
     </Stack>
 }
