@@ -41,14 +41,6 @@ export default function Genre(props: Props) {
         }
     }, [activeGenre])
 
-    useEffect(() => {
-        console.log(showFilmList)
-    }, [showFilmList])
-
-    useEffect(() => {
-        console.log(activeGenre)
-    }, [activeGenre])
-
     const handleGenreChange = (newGenre: string) => {
         if (activeGenre.includes(newGenre)) {
             setActiveGenre(activeGenre.filter((genre) => genre != newGenre))

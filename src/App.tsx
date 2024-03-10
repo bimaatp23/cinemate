@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close'
 import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
 import TheatersIcon from '@mui/icons-material/Theaters'
@@ -12,14 +13,15 @@ import MenuItem from '@mui/material/MenuItem'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { alpha, styled } from '@mui/material/styles'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import Genre from './pages/Genre'
 import Movie from './pages/Movie'
+import Search from './pages/Search'
 import Series from './pages/Series'
 import FilmService from './service/FilmService'
 import { Film } from './types/Film'
 
-const Search = styled('div')(({ theme }) => ({
+const SearchField = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -44,12 +46,25 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }))
 
+const RemoveIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}))
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     width: '100%',
     '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
+        padding: theme.spacing(1),
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        paddingRight: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
             width: '12ch',
@@ -67,6 +82,7 @@ export default function App() {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
     const [movieList, setMovieList] = useState<Film[]>([])
     const [seriesList, setSeriesList] = useState<Film[]>([])
+    const [searchValue, setSearchValue] = useState<string>('')
 
     useEffect(() => {
         filmService.getMovieList().subscribe({
@@ -180,21 +196,28 @@ export default function App() {
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Search>
+                        <SearchField>
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
                                 placeholder='Search…'
+                                value={searchValue}
+                                onChange={(event: ChangeEvent<HTMLInputElement>) => setSearchValue(event.target.value)}
                                 inputProps={{ 'aria-label': 'search' }}
                             />
-                        </Search>
+                            {searchValue.length > 0 ? <RemoveIconWrapper>
+                                <CloseIcon onClick={() => setSearchValue('')} />
+                            </RemoveIconWrapper> : <></>}
+                        </SearchField>
                     </Box>
                 </Toolbar>
             </Container>
         </AppBar>
-        {activePage === 'Series' ? <Series seriesList={seriesList} /> : <></>}
-        {activePage === 'Movies' ? <Movie movieList={movieList} /> : <></>}
-        {activePage === 'Genre' ? <Genre filmList={[...movieList, ...seriesList]} /> : <></>}
+        {searchValue.trim().length > 3 ? <Search filmList={[...movieList, ...seriesList]} searchValue={searchValue} /> : <>
+            {activePage === 'Series' ? <Series seriesList={seriesList} /> : <></>}
+            {activePage === 'Movies' ? <Movie movieList={movieList} /> : <></>}
+            {activePage === 'Genre' ? <Genre filmList={[...movieList, ...seriesList]} /> : <></>}
+        </>}
     </>
 }
