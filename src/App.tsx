@@ -18,7 +18,7 @@ import Genre from './pages/Genre'
 import Movie from './pages/Movie'
 import Search from './pages/Search'
 import Series from './pages/Series'
-import FilmService from './service/FilmService'
+import { FilmService, FilmServiceImpl } from './service/FilmService'
 import { Film } from './types/Film'
 
 const SearchField = styled('div')(({ theme }) => ({
@@ -76,7 +76,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 export default function App() {
-    const filmService = new FilmService()
+    const filmService: FilmService = new FilmServiceImpl()
     const pages: string[] = ['Series', 'Movies', 'Genre']
     const [activePage, setActivePage] = useState<string>('Series')
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)

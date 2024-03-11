@@ -1,12 +1,12 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Box, Chip, IconButton, Modal, Stack, Typography } from '@mui/material'
 import Util from '../Util'
-import { Film } from '../types/Film'
+import { FilmDetail } from '../types/FilmDetail'
 
 interface Props {
     open: boolean
     handleClose(): void
-    filmDetail: Film | undefined
+    filmDetail: FilmDetail | undefined
 }
 
 export default function Detail(props: Props) {
@@ -43,18 +43,13 @@ export default function Detail(props: Props) {
                 <CloseIcon color='primary' />
             </IconButton>
             {props.filmDetail !== undefined ? <>
-                <Stack
-                    display='flex'
-                    flexDirection='row'
-                    gap={3}
-                    flexWrap='wrap'
-                    mt={1}
-                    justifyContent='center'
-                >
-                    <img src={props.filmDetail.image} alt={props.filmDetail.title} style={{ width: '200px', height: 'auto' }} />
-                    <img src={props.filmDetail.image} alt={props.filmDetail.title} style={{ width: '200px', height: 'auto' }} />
-                    <img src={props.filmDetail.image} alt={props.filmDetail.title} style={{ width: '200px', height: 'auto' }} />
-                </Stack>
+                <iframe
+                    width="100%"
+                    height="400"
+                    src={props.filmDetail.trailer}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                ></iframe>
                 <Typography variant='h5' id='modal-title' sx={{ mt: 1 }}>
                     {props.filmDetail.title} ({props.filmDetail.year})
                 </Typography>

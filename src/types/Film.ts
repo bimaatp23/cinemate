@@ -6,4 +6,5 @@ export interface Film {
     genre: string[]
     year: string | number
     imdbid: string
+    type: 'Movie' | 'Series'
 }

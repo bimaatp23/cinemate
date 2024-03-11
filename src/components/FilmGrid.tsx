@@ -1,7 +1,9 @@
 import { Card, CardContent, CardMedia, Chip, Grid, Stack, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Util from '../Util'
+import { FilmService, FilmServiceImpl } from '../service/FilmService'
 import { Film } from '../types/Film'
+import { FilmDetail } from '../types/FilmDetail'
 import Detail from './Detail'
 
 interface Props {
@@ -9,8 +11,25 @@ interface Props {
 }
 
 export default function FilmGrid(props: Props) {
+    const filmService: FilmService = new FilmServiceImpl()
     const [openDetail, setOpenDetail] = useState<boolean>(false)
     const [selectedFilm, setSelectedFilm] = useState<Film | undefined>(undefined)
+    const [filmDetail, setFilmDetail] = useState<FilmDetail | undefined>(undefined)
+
+    useEffect(() => {
+        if (selectedFilm !== undefined) {
+            if (selectedFilm.type === 'Movie') filmService.getMovieDetail(selectedFilm.id).subscribe({
+                next: (data: FilmDetail) => {
+                    setFilmDetail(data)
+                }
+            })
+            if (selectedFilm.type === 'Series') filmService.getSeriesDetail(selectedFilm.id).subscribe({
+                next: (data: FilmDetail) => {
+                    setFilmDetail(data)
+                }
+            })
+        }
+    }, [selectedFilm])
 
     const handleOpenDetail = (newSelectedFilm: Film) => {
         setOpenDetail(true)
@@ -60,6 +79,6 @@ export default function FilmGrid(props: Props) {
                 </Grid>
             ))}
         </Grid>
-        <Detail filmDetail={selectedFilm} handleClose={handleCloseDetail} open={openDetail} />
+        <Detail filmDetail={filmDetail} handleClose={handleCloseDetail} open={openDetail} />
     </Stack>
 }
