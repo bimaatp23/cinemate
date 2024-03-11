@@ -16,6 +16,7 @@ export default function FilmGrid(props: Props) {
     const [selectedFilm, setSelectedFilm] = useState<Film | undefined>(undefined)
     const [filmDetail, setFilmDetail] = useState<FilmDetail | undefined>(undefined)
 
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         if (selectedFilm !== undefined) {
             if (selectedFilm.type === 'Movie') filmService.getMovieDetail(selectedFilm.id).subscribe({
@@ -30,6 +31,7 @@ export default function FilmGrid(props: Props) {
             })
         }
     }, [selectedFilm])
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     const handleOpenDetail = (newSelectedFilm: Film) => {
         setOpenDetail(true)
