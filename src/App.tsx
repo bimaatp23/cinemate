@@ -84,6 +84,7 @@ export default function App() {
     const [seriesList, setSeriesList] = useState<Film[]>([])
     const [searchValue, setSearchValue] = useState<string>('')
 
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         filmService.getMovieList().subscribe({
             next: (data: Film[]) => {
@@ -96,6 +97,7 @@ export default function App() {
             }
         })
     }, [])
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget)

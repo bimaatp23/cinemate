@@ -33,6 +33,7 @@ export default function Genre(props: Props) {
     ]
     const [activeGenre, setActiveGenre] = useState<string[]>([])
 
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         if (activeGenre.length === 0) {
             setShowFilmList([])
@@ -40,6 +41,7 @@ export default function Genre(props: Props) {
             setShowFilmList(props.filmList.filter((film) => film.genre.some((filmGenre) => activeGenre.includes(filmGenre))))
         }
     }, [activeGenre])
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     const handleGenreChange = (newGenre: string) => {
         if (activeGenre.includes(newGenre)) {
