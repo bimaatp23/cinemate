@@ -49,6 +49,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set up Git
+        run: |
+          git config --global user.email "bimaatp.23@gmail.com"
+          git config --global user.name "bimaatp23"
+
       - name: Deploy to GitHub Pages
         run: |
           npm install
