@@ -106,6 +106,7 @@ export default function App() {
     const handleChangePage = (page: string) => {
         setActivePage(page)
         setAnchorElNav(null)
+        setSearchValue('')
     }
 
     return <>
